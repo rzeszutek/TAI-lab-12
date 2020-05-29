@@ -305,7 +305,7 @@
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<nav>\r\n  <ul class = \"nav\">\r\n    <li class = \"nav-item\">\r\n      <a class= \"nav-link active\" [routerLink]=\"['/home']\">Home</a>\r\n    </li>\r\n    <li class = \"nav-item\">\r\n      <a class= \"nav-link active\" [routerLink]=\"['/contact']\">Contact</a>\r\n    </li>\r\n    <li class = \"nav-item\">\r\n      <a class= \"nav-link active\" [routerLink]=\"['/blog']\">Blog</a>\r\n    </li>\r\n    <li class = \"nav-item\">\r\n      <a class= \"nav-link active\" [routerLink]=\"['/add-post']\">Dodaj post</a>\r\n    </li>\r\n  </ul>\r\n  <a class=\"nav-link\" routerLink=\"/login\" *ngIf=\"!authService.currentUser\">Zaloguj</a>\r\n  <button class=\"nav-link\" (click)=\"logOut()\" *ngIf=\"authService.currentUser\">Wyloguj</button>\r\n  <a class=\"nav-link\" routerLink=\"/signup\" *ngIf=\"!authService.currentUser\">Zarejestruj</a>\r\n</nav>\r\n";
+    __webpack_exports__["default"] = "<nav>\r\n  <ul class = \"nav\">\r\n    <li class = \"nav-item\">\r\n      <a class= \"nav-link active\" [routerLink]=\"['/home']\">Home</a>\r\n    </li>\r\n    <li class = \"nav-item\">\r\n      <a class= \"nav-link active\" [routerLink]=\"['/contact']\">Contact</a>\r\n    </li>\r\n    <li class = \"nav-item\">\r\n      <a class= \"nav-link active\" [routerLink]=\"['/blog']\">Blog</a>\r\n    </li>\r\n    <li class = \"nav-item\">\r\n      <a class= \"nav-link active\" [routerLink]=\"['/add-post']\">Dodaj post</a>\r\n    </li>\r\n    <li>\r\n      <a class=\"nav-link\" routerLink=\"/login\" *ngIf=\"!authService.currentUser\">Zaloguj</a>\r\n    </li>\r\n    <li>\r\n      <a class=\"nav-link\" routerLink=\"/signup\" *ngIf=\"!authService.currentUser\">Zarejestruj</a>\r\n    </li>\r\n    <li>\r\n      <button class=\"nav-link\" (click)=\"logOut()\" *ngIf=\"authService.currentUser\">Wyloguj</button>\r\n    </li>\r\n  </ul>\r\n</nav>\r\n";
     /***/
   },
 
@@ -1266,6 +1266,12 @@
     var _components_signup_signup_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(
     /*! ./components/signup/signup.component */
     "./src/app/components/signup/signup.component.ts");
+    /* harmony import */
+
+
+    var _services_auth_guard__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(
+    /*! ./services/auth.guard */
+    "./src/app/services/auth.guard.ts");
 
     let AppModule = class AppModule {};
     AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["NgModule"])({
@@ -1275,7 +1281,7 @@
         provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_13__["HTTP_INTERCEPTORS"],
         useClass: _services_auth_interceptor__WEBPACK_IMPORTED_MODULE_24__["AuthInterceptor"],
         multi: true
-      }],
+      }, _services_auth_guard__WEBPACK_IMPORTED_MODULE_27__["AuthGuard"]],
       bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_4__["AppComponent"]]
     })], AppModule);
     /***/
@@ -2444,8 +2450,9 @@
       ngOnInit() {}
 
       logOut() {
-        this.router.navigate(['/']);
-        return this.authService.logout();
+        return this.authService.logout().subscribe(response => {
+          this.router.navigate(['/']);
+        });
       }
 
     };
